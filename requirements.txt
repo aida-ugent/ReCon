@@ -1,0 +1,12 @@
+tensorboardX==2.5.1
+pandas==2.0.1
+dask==2023.5.1
+numpy==1.21.5
+omegaconf
+scikit-learn==1.2.2
+POT
+matplotlib==3.5.2
+pytorch_lightning==2.0.2
+wandb==0.14.2
+sentence-transformers==2.2.2
+fastparquet==2023.4.0

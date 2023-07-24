@@ -1,0 +1,22 @@
+popularity:
+    parameters:         
+      dim: 1
+      param_init_std: 0.001
+      optimizer: AdamW
+      learning_rate: 1.0
+      weight_decay: 5e-1
+      embedding_operator: add
+      padding_idx: 0
+
+interaction:
+    dependent_models:
+      - popularity
+    parameters:         
+      dim: 8
+      param_init_std: 0.01
+      optimizer: AdamW
+      learning_rate: 0.05
+      weight_decay_orig: 1e-1
+      weight_decay: 0.05
+      embedding_operator: mul
+      padding_idx: 0
