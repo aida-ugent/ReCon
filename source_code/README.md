@@ -1,5 +1,5 @@
 # ReCon
-This repository contains the source code, installation and use instructions for the method presented in the paper: "Reducing congestion in job recommendation with optimal transport". We provide Python implementations of the complete ReCon model.
+This repository contains the source code, installation and use instructions for the method presented in the paper: "ReCon: Reducing congestion in job recommendation with optimal transport". We provide Python implementations of the complete ReCon model.
 
 
 # Source code for ReCon
