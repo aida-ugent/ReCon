@@ -23,11 +23,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--path_to_config", 
 	type=str,
 	default='recommendation_method/cne/config.yml', 
-	help="model path for data")
+	help="config path, parameters learning_rate, weight_decay, and dim are reinitialized using arguments in this file")
 parser.add_argument("--base_path_to_config", 
 	type=str,
 	default='recommendation_method/cne/config.yml', 
-	help="model path for data")
+	help="base config path, not used")
 
 parser.add_argument("--batch_size", 
 	type=int, 
@@ -36,7 +36,7 @@ parser.add_argument("--batch_size",
 parser.add_argument("--base_batch_size", 
 	type=int, 
 	default=4096, 
-	help="batch size for training")
+	help="base batch size for training")
 
 parser.add_argument("--min_epochs", 
 	type=int,
@@ -49,14 +49,14 @@ parser.add_argument("--epochs",
 parser.add_argument("--base_epochs", 
 	type=int,
 	default=40000,  
-	help="training epoches")
+	help="base training epoches")
 parser.add_argument("--base_training_repeat", 
 	type=int,
 	default=0, 
-	help="# repeating training")
+	help="not used")
 parser.add_argument("--base_monitor", 
 	type=str,
-	default='valid_auc', 
+	default='valid_loss', 
 	help="valid_loss, valid_auc")
 
 parser.add_argument("--num_ng", 
@@ -93,7 +93,7 @@ parser.add_argument("--sinkhorn_maxiter",
 	help="sinkhorn max iterations")
 parser.add_argument("--dataset", 
 	type=str,
-	default='career_builder_small_2', 
+	default='career_builder_small', 
 	help="")
 parser.add_argument("--main_path", 
 	type=str,
@@ -102,11 +102,11 @@ parser.add_argument("--main_path",
 parser.add_argument("--model_path", 
 	type=str,
 	default='models/', 
-	help="model path for data")
+	help="model path to save/load")
 parser.add_argument("--figures_path", 
 	type=str,
 	default='figures/', 
-	help="path to save the figures")
+	help="not used")
 parser.add_argument("--use_pretrained", 
 	type=int,
 	default=0, 
@@ -123,16 +123,16 @@ parser.add_argument("--patience",
 parser.add_argument("--base_patience", 
 	type=int,
 	default=5, 
-	help="patience in early stopping")
+	help="base patience in early stopping")
 
 parser.add_argument("--monitor", 
 	type=str,
-	default='valid_auc', 
+	default='valid_loss', 
 	help="valid_loss, valid_auc")
 
 parser.add_argument("--mode", 
 	type=str,
-	default='max', 
+	default='min', 
 	help="min or max")
 parser.add_argument("--ot_method", 
 	type=str,

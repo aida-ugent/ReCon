@@ -106,6 +106,14 @@ class IdentityModel(Model):
 				self.item3 = self.item3.to(self.device)
 				prediction2 = self.forward_cartesian_prod(self.user3, self.item3).to(self.device)
 				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
+			elif self.ot_method == 'batches':
+				uids = list(set(uids))
+				iids = list(set(iids))
+				uid_tensor = self.user3.to(self.device)[uids].flatten()
+				iid_tensor = self.item3.to(self.device)[iids].flatten()
+				prediction2 = self.forward_cartesian_prod(uid_tensor, iid_tensor).to(self.device)
+				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2, shape = (len(uids), len(iids)))
+
 			loss = loss + self.lambda_p*sinkhorn_loss
 		self.log("train_auc", auc, prog_bar=True)
 		self.log("train_loss", loss, prog_bar=True)
@@ -122,6 +130,14 @@ class IdentityModel(Model):
 				self.item3 = self.item3.to(self.device)
 				prediction2 = self.forward_cartesian_prod(self.user3, self.item3).to(self.device)
 				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
+			elif self.ot_method == 'batches':
+				uids = list(set(uids))
+				iids = list(set(iids))
+				uid_tensor = self.user3.to(self.device)[uids].flatten()
+				iid_tensor = self.item3.to(self.device)[iids].flatten()
+				prediction2 = self.forward_cartesian_prod(uid_tensor, iid_tensor).to(self.device)
+				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2, shape = (len(uids), len(iids)))
+
 			loss = loss + self.lambda_p*sinkhorn_loss
 
 		self.validation_step_outputs.append({'valid_auc': auc, 'valid_loss': loss})
@@ -136,16 +152,9 @@ class IdentityModel(Model):
 			if self.ot_method == 'all':
 				prediction2 = self.forward_cartesian_prod(self.user3, self.item3).to(self.device)
 				congestion_1, _, _ = self.ot_eval.compute_congestion_coverage_items(prediction2.reshape((self.n_user, self.n_item)), 1, None, do_print=False)
-				congestion_10, _, _ = self.ot_eval.compute_congestion_coverage_items(prediction2.reshape((self.n_user, self.n_item)), 10, None, do_print=False)
-				congestion_100, _, _ = self.ot_eval.compute_congestion_coverage_items(prediction2.reshape((self.n_user, self.n_item)), 100, None, do_print=False)
 			elif self.ot_method == 'batches':
 				congestion_1, _, _ = self.ot_eval.compute_congestion_coverage_items_from_model(self, 1, None, do_print=False)
-				congestion_10, _, _ = self.ot_eval.compute_congestion_coverage_items_from_model(self, 10, None, do_print=False)
-				congestion_100, _, _ = self.ot_eval.compute_congestion_coverage_items_from_model(self, 100, None, do_print=False)
 			self.log("valid_minus_congestion", -congestion_1, prog_bar=True)
-			self.log("valid_minus_congestion_1", -congestion_1, prog_bar=True)
-			self.log("valid_minus_congestion_10", -congestion_10, prog_bar=True)
-			self.log("valid_minus_congestion_100", -congestion_100, prog_bar=True)
 			self.validation_step_outputs.clear()
 		else:
 			return super().on_validation_epoch_end()

@@ -47,7 +47,7 @@ def train(args, config, r_model, ModelClass, model_name, model_file_path, epochs
 	trainer = pl.Trainer(callbacks=callbacks, num_sanity_val_steps=0, enable_checkpointing=True, gradient_clip_val=gradient_clip_val, precision=args.precision,
 		    default_root_dir=os.path.join(args.model_path, 'model_checkpoints', model_file_path.split('/')[-1].replace('.pth', '')),
 			logger=False, min_epochs=args.min_epochs, max_epochs=epochs, 
-			accelerator=args.device, check_val_every_n_epoch=10, log_every_n_steps=1, max_time=max_time_dict)
+			accelerator=args.device, check_val_every_n_epoch=1, log_every_n_steps=1, max_time=max_time_dict)
 
 	r_model.train()
 	print("trainer.fit")
