@@ -107,12 +107,10 @@ class IdentityModel(Model):
 				prediction2 = self.forward_cartesian_prod(self.user3, self.item3).to(self.device)
 				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
 			elif self.ot_method == 'batches':
-				uids = list(set(uids))
-				iids = list(set(iids))
-				uid_tensor = self.user3.to(self.device)[uids].flatten()
-				iid_tensor = self.item3.to(self.device)[iids].flatten()
+				uid_tensor = uids.unique()
+				iid_tensor = iids.unique()
 				prediction2 = self.forward_cartesian_prod(uid_tensor, iid_tensor).to(self.device)
-				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2, shape = (len(uids), len(iids)))
+				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
 
 			loss = loss + self.lambda_p*sinkhorn_loss
 		self.log("train_auc", auc, prog_bar=True)
@@ -131,12 +129,10 @@ class IdentityModel(Model):
 				prediction2 = self.forward_cartesian_prod(self.user3, self.item3).to(self.device)
 				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
 			elif self.ot_method == 'batches':
-				uids = list(set(uids))
-				iids = list(set(iids))
-				uid_tensor = self.user3.to(self.device)[uids].flatten()
-				iid_tensor = self.item3.to(self.device)[iids].flatten()
+				uid_tensor = uids.unique()
+				iid_tensor = iids.unique()
 				prediction2 = self.forward_cartesian_prod(uid_tensor, iid_tensor).to(self.device)
-				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2, shape = (len(uids), len(iids)))
+				sinkhorn_loss = self.ot_plugin.get_sinkhorn_loss(prediction2)
 
 			loss = loss + self.lambda_p*sinkhorn_loss
 

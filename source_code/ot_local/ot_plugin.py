@@ -12,17 +12,11 @@ class OTPlugin:
         self.iterative_optimization = iterative_optimization
         
     def get_sinkhorn_loss(self, predictions, shape=None):
-        if shape is None:
-            shape = (self.user_num, self.item_num)
-
-        P = predictions.reshape(shape)
+        P = predictions
         M = torch.log((1-P)/P)
-        
-
         a = sinkhorn(M.unsqueeze(0), gamma=self.sinkhorn_gamma, maxiters=self.sinkhorn_maxiter)
-        sinkhorn_loss = torch.dot(a.flatten(),M.unsqueeze(0).flatten())        
+        sinkhorn_loss = torch.dot(a.flatten(),M.flatten())
         D = -torch.log(1-predictions)
         sinkhorn_loss += D.sum()
-        
         return sinkhorn_loss
 
