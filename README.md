@@ -4,8 +4,7 @@ This repository contains the supplementary material, source code, installation a
 
 ## Citation ##
 
-If you have used ReCon in your research, please cite our 
-[RecSys2023 paper](https://dl.acm.org/doi/abs/10.1145/3604915.3608817):
+If you have used ReCon in your research, please cite the following papers:
 
 ```bibtex
 @inproceedings{10.1145/3604915.3608817,
@@ -25,4 +24,22 @@ keywords = {Job recommendation, Congestion-avoiding recommendation},
 location = {Singapore, Singapore},
 series = {RecSys '23}
 }
+```
 
+and
+
+```bibtex
+@ARTICLE{10504265,
+author={Mashayekhi, Yoosof and Kang, Bo and Lijffijt, Jefrey and De Bie, Tijl},
+journal={IEEE Access}, 
+title={Scalable Job Recommendation With Lower Congestion Using Optimal Transport}, 
+year={2024},
+volume={12},
+number={},
+pages={55491-55505},
+keywords={Recommender systems;Optimization;Aggregates;Task analysis;Costs;Probabilistic logic;Indexes;Jobs listings;Performance evaluation;Job recommendation;optimal transport;congestion;exposure fairness;aggregate diversity},
+doi={10.1109/ACCESS.2024.3390229}}
+```
+
+## Note ##
+Some of the results of the baselines have been updated. However, they do not affect the conclusions of the paper. The updated results are included in the Journal_supplementary_material.pdf
